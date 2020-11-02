@@ -1,6 +1,6 @@
 var React = require('react');
 var { mount } = require('enzyme');
-var ReactQuill = require('../lib/index');
+var ReactQuillV2Tables = require('../lib/index');
 
 function ReactQuillNode(props, children) {
   props = Object.assign(
@@ -11,7 +11,7 @@ function ReactQuillNode(props, children) {
     props
   );
 
-  return React.createElement(ReactQuill, props, children);
+  return React.createElement(ReactQuillV2Tables, props, children);
 }
 
 function mountReactQuill(props, node) {

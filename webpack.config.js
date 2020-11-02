@@ -39,7 +39,7 @@ module.exports = {
   output: {
     path: dir('dist'),
     filename: 'react-quill.js',
-    library: 'ReactQuill',
+    library: 'ReactQuillV2Tables',
     libraryTarget: 'umd',
   },
 

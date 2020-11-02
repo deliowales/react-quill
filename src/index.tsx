@@ -89,7 +89,7 @@ interface ReactQuillState {
   generation: number,
 }
 
-class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
+class ReactQuillV2Tables extends React.Component<ReactQuillProps, ReactQuillState> {
 
   static displayName = 'React Quill'
 

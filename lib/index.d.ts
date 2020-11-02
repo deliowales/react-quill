@@ -1,5 +1,5 @@
 import React from 'react';
-import { QuillOptionsStatic, RangeStatic, BoundsStatic, StringMap, Sources } from 'quill';
+import Quill, { QuillOptionsStatic, RangeStatic, BoundsStatic, StringMap, Sources } from 'quill';
 declare type DeltaStatic = any;
 declare namespace ReactQuillV2Tables {
     type Value = string | DeltaStatic;
@@ -39,5 +39,81 @@ declare namespace ReactQuillV2Tables {
         getSelection(focus?: boolean): RangeStatic;
         getContents(index?: number, length?: number): DeltaStatic;
     }
+}
+import Value = ReactQuillV2Tables.Value;
+import Range = ReactQuillV2Tables.Range;
+import QuillOptions = ReactQuillV2Tables.QuillOptions;
+import ReactQuillProps = ReactQuillV2Tables.ReactQuillProps;
+import UnprivilegedEditor = ReactQuillV2Tables.UnprivilegedEditor;
+interface ReactQuillState {
+    generation: number;
+}
+declare class ReactQuillV2Tables extends React.Component<ReactQuillProps, ReactQuillState> {
+    static displayName: string;
+    static Quill: typeof Quill;
+    dirtyProps: (keyof ReactQuillProps)[];
+    cleanProps: (keyof ReactQuillProps)[];
+    static defaultProps: {
+        theme: string;
+        modules: {};
+        readOnly: boolean;
+    };
+    state: ReactQuillState;
+    editor?: Quill;
+    editingArea?: React.ReactInstance | null;
+    value: Value;
+    selection: Range;
+    lastDeltaChangeSet?: DeltaStatic;
+    regenerationSnapshot?: {
+        delta: DeltaStatic;
+        selection: Range;
+    };
+    unprivilegedEditor?: UnprivilegedEditor;
+    constructor(props: ReactQuillProps);
+    validateProps(props: ReactQuillProps): void;
+    shouldComponentUpdate(nextProps: ReactQuillProps, nextState: ReactQuillState): boolean;
+    shouldComponentRegenerate(nextProps: ReactQuillProps): boolean;
+    componentDidMount(): void;
+    componentWillUnmount(): void;
+    componentDidUpdate(prevProps: ReactQuillProps, prevState: ReactQuillState): void;
+    instantiateEditor(): void;
+    destroyEditor(): void;
+    isControlled(): boolean;
+    getEditorConfig(): QuillOptions;
+    getEditor(): Quill;
+    /**
+    Creates an editor on the given element. The editor will be passed the
+    configuration, have its events bound,
+    */
+    createEditor(element: Element, config: QuillOptions): Quill;
+    hookEditor(editor: Quill): void;
+    unhookEditor(editor: Quill): void;
+    getEditorContents(): Value;
+    getEditorSelection(): Range;
+    isDelta(value: any): boolean;
+    isEqualValue(value: any, nextValue: any): boolean;
+    setEditorContents(editor: Quill, value: Value): void;
+    setEditorSelection(editor: Quill, range: Range): void;
+    setEditorTabIndex(editor: Quill, tabIndex: number): void;
+    setEditorReadOnly(editor: Quill, value: boolean): void;
+    makeUnprivilegedEditor(editor: Quill): {
+        getHTML: () => string;
+        getLength: () => number;
+        getText: (index?: number | undefined, length?: number | undefined) => string;
+        getContents: (index?: number | undefined, length?: number | undefined) => import("quill-delta");
+        getSelection: {
+            (focus: true): RangeStatic;
+            (focus?: false | undefined): Range;
+        };
+        getBounds: (index: number, length?: number | undefined) => BoundsStatic;
+    };
+    getEditingArea(): Element;
+    renderEditingArea(): JSX.Element;
+    render(): JSX.Element;
+    onEditorChange: (eventName: 'text-change' | 'selection-change', rangeOrDelta: Range | DeltaStatic, oldRangeOrDelta: Range | DeltaStatic, source: Sources) => void;
+    onEditorChangeText(value: string, delta: DeltaStatic, source: Sources, editor: UnprivilegedEditor): void;
+    onEditorChangeSelection(nextSelection: RangeStatic, source: Sources, editor: UnprivilegedEditor): void;
+    focus(): void;
+    blur(): void;
 }
 export = ReactQuillV2Tables;
