@@ -9,16 +9,16 @@ import isEqual from 'lodash/isEqual';
 
 import Quill, {
   QuillOptionsStatic,
-  DeltaStatic,
   RangeStatic,
   BoundsStatic,
   StringMap,
   Sources,
 } from 'quill';
+type DeltaStatic = any;
 
 // Merged namespace hack to export types along with default object
 // See: https://github.com/Microsoft/TypeScript/issues/2719
-namespace ReactQuill {
+namespace ReactQuillV2Tables {
   export type Value = string | DeltaStatic;
   export type Range = RangeStatic | null;
 
@@ -79,11 +79,11 @@ namespace ReactQuill {
 }
 
 // Re-import everything from namespace into scope for comfort
-import Value = ReactQuill.Value;
-import Range = ReactQuill.Range;
-import QuillOptions = ReactQuill.QuillOptions;
-import ReactQuillProps = ReactQuill.ReactQuillProps;
-import UnprivilegedEditor = ReactQuill.UnprivilegedEditor;
+import Value = ReactQuillV2Tables.Value;
+import Range = ReactQuillV2Tables.Range;
+import QuillOptions = ReactQuillV2Tables.QuillOptions;
+import ReactQuillProps = ReactQuillV2Tables.ReactQuillProps;
+import UnprivilegedEditor = ReactQuillV2Tables.UnprivilegedEditor;
 
 interface ReactQuillState {
   generation: number,
@@ -382,7 +382,7 @@ class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
     this.value = value;
     const sel = this.getEditorSelection();
     if (typeof value === 'string') {
-      editor.setContents(editor.clipboard.convert(value));
+      editor.setContents(editor.clipboard.convert({ html: value }));
     } else {
       editor.setContents(value);
     }
@@ -575,4 +575,4 @@ function postpone(fn: (value: void) => void) {
 
 // Compatibility Export to avoid `require(...).default` on CommonJS.
 // See: https://github.com/Microsoft/TypeScript/issues/2719
-export = ReactQuill;
+export = ReactQuillV2Tables;

@@ -1,14 +1,14 @@
 {
-  "name": "react-quill",
-  "version": "2.0.0-beta.2",
-  "description": "The Quill rich-text editor as a React component.",
+  "name": "react-quill-v2-tables",
+  "version": "2.0.3",
+  "description": "React Quil with quillv2",
   "author": "zenoamaro <zenoamaro@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/zenoamaro/react-quill",
   "bugs": "https://github.com/zenoamaro/react-quill/issues",
   "repository": "https://github.com/zenoamaro/react-quill.git",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "types": "types.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:dist && npm run build:css",
     "build:lib": "tsc",
@@ -43,9 +43,9 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@types/quill": "^1.3.10",
+    "@types/quill": "2.0.4",
     "lodash": "^4.17.4",
-    "quill": "^1.3.7"
+    "quill": "2.0.0-dev.4"
   },
   "peerDependencies": {
     "react": "^16.0.0",
