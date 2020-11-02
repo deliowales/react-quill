@@ -11,6 +11,13 @@
 # Dependencies
 /node_modules
 
+<<<<<<< HEAD
+=======
+# Compiled files
+# /dist
+# /lib
+
+>>>>>>> master
 # Packaging artifacts
 /react-quill-*.tgz
 /package
